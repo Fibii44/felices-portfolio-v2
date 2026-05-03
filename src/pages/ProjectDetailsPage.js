@@ -15,6 +15,11 @@ const ProjectDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
   const [selectedImg, setSelectedImg] = React.useState(null);
+  const [hasMounted, setHasMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasMounted(true);
+  }, []);
   
   // Safety filter: handle spaces/hyphens and case sensitivity
   const project = projects?.find(p => {
@@ -71,22 +76,24 @@ const ProjectDetailsPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-nebula-500/30 relative">
-      <TargetCursor />
+      {hasMounted && <TargetCursor />}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Particles
-          particleCount={150}
-          particleSpread={10}
-          speed={0.05}
-          particleColors={['#f472b6', '#ffffff']}
-          moveParticlesOnHover={true}
-          particleHoverFactor={2}
-          alphaParticles={true}
-          particleBaseSize={80}
-          sizeRandomness={1}
-          cameraDistance={20}
-        />
+        {hasMounted && (
+          <Particles
+            particleCount={150}
+            particleSpread={10}
+            speed={0.05}
+            particleColors={['#f472b6', '#ffffff']}
+            moveParticlesOnHover={true}
+            particleHoverFactor={2}
+            alphaParticles={true}
+            particleBaseSize={80}
+            sizeRandomness={1}
+            cameraDistance={20}
+          />
+        )}
       </div>
-      <Starfield />
+      {hasMounted && <Starfield />}
 
       {/* Lightbox Overlay */}
       <AnimatePresence>
