@@ -194,12 +194,16 @@ const ProjectDetailsPage = () => {
 
           {/* Hero Image */}
           <div
-            className="relative aspect-video w-full rounded-3xl overflow-hidden border border-white/10 mb-16 shadow-2xl cursor-zoom-in group"
+            className={`relative ${project.tags.some(t => t.toLowerCase().includes('mobile')) ? 'aspect-[9/16] max-w-sm mx-auto' : 'aspect-video'} w-full rounded-3xl overflow-hidden border border-white/10 mb-16 shadow-2xl cursor-zoom-in group bg-space-900`}
             onClick={() => setSelectedImg(project.src)}
           >
             <img
               src={project.src}
               alt={project.title}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.classList.add('bg-space-900', 'flex', 'items-center', 'justify-center');
+              }}
               className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-space-950/60 to-transparent" />
@@ -362,7 +366,7 @@ const ProjectDetailsPage = () => {
                 {project.stack && project.stack.length > 0 && (
                   <div className="relative h-[500px] w-full flex items-center justify-center scale-100 opacity-80 hover:opacity-100 transition-opacity">
                     <CloudOrbit
-                      size={0}
+                      size={120}
                       duration={3}
                       className="bg-transparent border-none shadow-none overflow-visible"
                     >
