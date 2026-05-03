@@ -59,7 +59,7 @@ const ProjectsPage = () => {
                     ))}
                   </div>
                   <Link 
-                    href={`/projects/${project.id}`} 
+                    href={`/projects/${project.id.replace(/ /g, '-')}`} 
                     className="inline-flex items-center gap-2 rounded-full border border-cosmic-400/40 bg-cosmic-500/15 px-6 py-3 text-[10px] font-black uppercase tracking-[0.28em] text-white transition-all duration-300 hover:border-cosmic-300 hover:bg-cosmic-500/25 hover:shadow-[0_0_30px_rgba(244,114,182,0.22)] self-start mt-6 font-pixel"
                   >
                     <Rocket size={14} /> View Details
