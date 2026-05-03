@@ -136,20 +136,36 @@ const SkillsPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-full">
+          {[
+            {
+              title: "Formatting Module",
+              tags: ["Dev", "PHP", "Laravel"],
+              description: "Developed and implemented a robust formatting module for HRMS data processing, ensuring consistency across various system outputs."
+            },
+            {
+              title: "UI/UX design of manpro version 3",
+              tags: ["Design", "Figma", "UI/UX"],
+              description: "Conceptualized and designed the complete interface overhaul for version 3, focusing on user efficiency and modern aesthetics."
+            },
+            {
+              title: "QA the manpro version 3",
+              tags: ["QA", "Testing", "Bug Fix"],
+              description: "Conducted extensive quality assurance testing for version 3, identifying critical bugs and ensuring a polished release."
+            }
+          ].map((work, index) => (
+            <div key={index} className="h-full">
               <ExpandableCard 
-                title={`Internship Work ${i}`}
-                src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop&${i}`}
-                description="Placeholder Tag"
+                title={work.title}
+                src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop&${index}`}
+                description={work.tags[0]}
                 className="cursor-target bg-white/[0.03] border border-white/20 hover:border-white/30 hover:bg-white/[0.08] transition-all duration-300"
               >
                 <div className="flex flex-col gap-4 font-sans text-left mt-2">
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    Detailed description of the internship project will be added here. This section showcases specific contributions, tasks, and deliverables completed during the internship at ManPro HRMS.
+                    {work.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {['Task', 'Internship', 'Dev'].map(tag => (
+                    {work.tags.map(tag => (
                       <span key={tag} className="text-[10px] uppercase tracking-widest font-black px-4 py-1.5 rounded-full bg-nebula-500/10 text-nebula-400 border border-nebula-500/20">
                         {tag}
                       </span>

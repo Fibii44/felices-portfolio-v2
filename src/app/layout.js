@@ -1,8 +1,12 @@
 import '../index.css';
 
 export const metadata = {
-  title: 'Felices Portfolio',
+  title: 'Felices Feby',
   description: 'Web Developer & QA Tester Portfolio',
+  icons: {
+    icon: '/logo.svg?v=2',
+    apple: '/logo.svg?v=2',
+  },
 };
 
 export default function RootLayout({ children }) {
