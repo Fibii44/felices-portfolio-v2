@@ -17,38 +17,42 @@ const ProjectDetailsPage = () => {
   const [selectedImg, setSelectedImg] = React.useState(null);
   
   // Safety filter: handle spaces/hyphens and case sensitivity
-  const project = projects.find(p => {
-    const slug = params?.slug?.toLowerCase().replace(/%20| /g, '-');
+  const project = projects?.find(p => {
+    const rawSlug = params?.slug || '';
+    const slug = String(rawSlug).toLowerCase().replace(/%20| /g, '-');
     return p.id.toLowerCase() === slug;
   });
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-space-950 text-white">
-        <div className="text-center">
-          <h1 className="text-4xl font-pixel mb-4">Project Not Found</h1>
+      <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
+        <div className="text-center p-8">
+          <h1 className="text-4xl font-pixel mb-6">PROJECT NOT FOUND</h1>
+          <p className="text-slate-400 mb-8 font-sans">The mission coordinates for this project are missing.</p>
           <button
             onClick={() => router.push('/')}
-            className="text-nebula-400 hover:underline font-pixel"
+            className="px-8 py-3 bg-nebula-500/20 border border-nebula-500/50 rounded-full text-white font-pixel text-xs hover:bg-nebula-500/40 transition-all"
           >
-            Back to Home
+            RETURN TO BASE
           </button>
         </div>
       </div>
     );
   }
 
-  const allImages = project ? [project.src, ...(project.extraImages || [])] : [];
+  const allImages = project?.extraImages ? [project.src, ...project.extraImages] : [project.src];
   const currentImgIndex = allImages.indexOf(selectedImg);
 
   const handleNext = (e) => {
     e?.stopPropagation();
+    if (!allImages.length) return;
     const nextIndex = (currentImgIndex + 1) % allImages.length;
     setSelectedImg(allImages[nextIndex]);
   };
 
   const handlePrev = (e) => {
     e?.stopPropagation();
+    if (!allImages.length) return;
     const prevIndex = (currentImgIndex - 1 + allImages.length) % allImages.length;
     setSelectedImg(allImages[prevIndex]);
   };
@@ -66,14 +70,14 @@ const ProjectDetailsPage = () => {
   }, [selectedImg, currentImgIndex]);
 
   return (
-    <div className="min-h-screen bg-space-950 text-slate-100 font-sans selection:bg-cosmic-500/30 relative">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-nebula-500/30 relative">
       <TargetCursor />
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Particles
-          particleCount={200}
+          particleCount={150}
           particleSpread={10}
-          speed={0.1}
-          particleColors={['#f472b6', '#db2777', '#ffffff']}
+          speed={0.05}
+          particleColors={['#f472b6', '#ffffff']}
           moveParticlesOnHover={true}
           particleHoverFactor={2}
           alphaParticles={true}
@@ -113,11 +117,10 @@ const ProjectDetailsPage = () => {
             )}
 
             <motion.div
-              key={selectedImg} // Key ensures animation on image change
+              key={selectedImg}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="relative max-w-7xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center gap-4"
               onClick={(e) => e.stopPropagation()}
             >
@@ -127,24 +130,16 @@ const ProjectDetailsPage = () => {
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl border border-white/5"
               />
 
-              {/* Image Counter */}
               <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-pixel tracking-widest text-white/60">
                 {currentImgIndex + 1} / {allImages.length}
               </div>
-
-              <button
-                className="absolute top-0 right-0 -mt-12 text-white/50 hover:text-white transition-colors p-2"
-                onClick={() => setSelectedImg(null)}
-              >
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
-              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-space-950/40 backdrop-blur-md border-b border-white/5 px-8 py-4">
+      <nav className="fixed top-0 w-full z-50 bg-slate-950/40 backdrop-blur-md border-b border-white/5 px-8 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <button
             onClick={() => router.push('/#projects')}
@@ -166,31 +161,14 @@ const ProjectDetailsPage = () => {
           {/* Header Section */}
           <div className="mb-12">
             <div className="flex flex-wrap gap-2 mb-6">
-              {project.tags.map(tag => (
-                <span key={tag} className="text-[9px] uppercase tracking-widest font-black px-4 py-1.5 rounded-full bg-nebula-500/10 text-nebula-400 border border-nebula-500/20">
+              {project.tags?.map(tag => (
+                <span key={tag} className="text-[9px] uppercase tracking-widest font-black px-4 py-1.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">
                   {tag}
                 </span>
               ))}
             </div>
             <h1 className="text-2xl md:text-4xl font-black text-white mb-6 font-pixel uppercase leading-tight">
-              <Shuffle 
-                text={project.title}
-                shuffleDirection="right"
-                duration={0.35}
-                animationMode="evenodd"
-                shuffleTimes={1}
-                ease="power3.out"
-                stagger={0.03}
-                threshold={0.1}
-                triggerOnce={true}
-                triggerOnHover={true}
-                respectReducedMotion
-                loop={false}
-                loopDelay={0}
-                colorFrom="#F472B6"
-                colorTo="#FFFFFF"
-                className="text-white inline-block cursor-pointer"
-              />
+              {project.title}
             </h1>
             <p className="text-xl text-slate-400 leading-relaxed max-w-3xl">
               {project.desc}
@@ -199,7 +177,7 @@ const ProjectDetailsPage = () => {
 
           {/* Hero Image */}
           <div
-            className={`relative ${project.tags.some(t => t.toLowerCase().includes('mobile')) ? 'aspect-[9/16] max-w-sm mx-auto' : 'aspect-video'} w-full rounded-3xl overflow-hidden border border-white/10 mb-16 shadow-2xl cursor-zoom-in group bg-space-900`}
+            className={`relative ${project.tags?.some(t => t.toLowerCase().includes('mobile')) ? 'aspect-[9/16] max-w-sm mx-auto' : 'aspect-video'} w-full rounded-3xl overflow-hidden border border-white/10 mb-16 shadow-2xl cursor-zoom-in group bg-slate-900`}
             onClick={() => setSelectedImg(project.src)}
           >
             <img
@@ -207,27 +185,20 @@ const ProjectDetailsPage = () => {
               alt={project.title}
               onError={(e) => {
                 e.target.style.display = 'none';
-                e.target.parentElement.classList.add('bg-space-900', 'flex', 'items-center', 'justify-center');
+                e.target.parentElement.classList.add('bg-slate-900', 'flex', 'items-center', 'justify-center');
               }}
               className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-space-950/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
           </div>
 
           {/* Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
             {/* Left: Main Content */}
             <div className="lg:col-span-2">
-                <h2 className="text-2xl font-pixel text-white mb-8 uppercase">
-                  <Shuffle 
-                    text="Project Overview" 
-                    tag="span" 
-                    colorFrom="#F472B6" 
-                    colorTo="#FFFFFF" 
-                  />
-                </h2>
+                <h2 className="text-2xl font-pixel text-white mb-8 uppercase">Project Overview</h2>
               <div className="prose prose-invert max-w-none text-slate-400 leading-relaxed text-base whitespace-pre-line">
-                {project.longDesc.split('\n').map((line, idx) => {
+                {project.longDesc?.split('\n').map((line, idx) => {
                   if (line.trim().startsWith('•')) {
                     return (
                       <div key={idx} className="flex items-start gap-4 my-3 group">
