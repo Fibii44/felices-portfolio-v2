@@ -15,7 +15,12 @@ const ProjectDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
   const [selectedImg, setSelectedImg] = React.useState(null);
-  const project = projects.find(p => p.id === params?.slug);
+  
+  // Safety filter: handle spaces/hyphens and case sensitivity
+  const project = projects.find(p => {
+    const slug = params?.slug?.toLowerCase().replace(/%20| /g, '-');
+    return p.id.toLowerCase() === slug;
+  });
 
   if (!project) {
     return (
