@@ -68,7 +68,7 @@ const ProjectDetailsPage = () => {
           particleCount={200}
           particleSpread={10}
           speed={0.1}
-          particleColors={['#22d3ee', '#f472b6', '#ffffff']}
+          particleColors={['#f472b6', '#db2777', '#ffffff']}
           moveParticlesOnHover={true}
           particleHoverFactor={2}
           alphaParticles={true}
@@ -222,7 +222,7 @@ const ProjectDetailsPage = () => {
                   if (line.trim().startsWith('•')) {
                     return (
                       <div key={idx} className="flex items-start gap-4 my-3 group">
-                        <div className="mt-2 w-1.5 h-1.5 rounded-full bg-nebula-500 shadow-[0_0_10px_rgba(34,211,238,0.5)] group-hover:scale-125 transition-transform shrink-0" />
+                        <div className="mt-2 w-1.5 h-1.5 rounded-full bg-nebula-500 shadow-[0_0_10px_rgba(244,114,182,0.5)] group-hover:scale-125 transition-transform shrink-0" />
                         <span className="text-slate-300 group-hover:text-white transition-colors text-sm md:text-base">
                           {line.trim().substring(1).trim()}
                         </span>
