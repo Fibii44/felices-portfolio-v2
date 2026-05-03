@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.02em;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite ease-in-out;
+}
+
+/* Tailwind base transitions for animate-in classes */
+.animate-in {
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+}
+
+@keyframes slide-in-bottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.slide-in-from-bottom {
+  animation-name: slide-in-bottom;
+}
+/* Smooth scrolling for your navigation links */
+html {
+  scroll-behavior: auto;
+}
+
+/* Add this to your CSS file */
+@keyframes breathe {
+  0%, 100% { width: 48px; opacity: 0.6; }
+  50% { width: 64px; opacity: 1; }
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left var(--duration) linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right var(--duration) linear infinite;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Starfield styles */
+.nebula-glow {
+  filter: blur(100px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@keyframes float-planet {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -50px) rotate(2deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+
+.animate-float-planet {
+  animation: float-planet 25s ease-in-out infinite;
+}
+
+/* Phase 1: Cloud sweeps UP to cover the screen */
+@keyframes cloud-sweep-in {
+  0%   { transform: translateY(110%); }
+  100% { transform: translateY(0%); }
+}
+
+/* Phase 2: Cloud continues UP and exits off the top */
+@keyframes cloud-sweep-out {
+  0%   { transform: translateY(0%); }
+  100% { transform: translateY(-110%); }
+}
+
+.animate-cloud-sweep-in {
+  animation: cloud-sweep-in 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.animate-cloud-sweep-out {
+  animation: cloud-sweep-out 0.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.cloud-divider {
+  --cloud-opacity: 0;
+  --cloud-rise: 60px;
+  --cloud-drift: 0px;
+}
+
+.cloud-divider-svg {
+  opacity: var(--cloud-opacity);
+  transform: translateX(var(--cloud-drift)) translateY(var(--cloud-rise));
+  filter: none;
+  transition: opacity 100ms linear;
+  will-change: transform, opacity;
+}
+
+.cloud-divider-art {
+  display: block;
+  transform: translateY(-360px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud-divider-svg {
+    opacity: 0.3;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero neon stroke text (used on Home) */
+.text-stroke-nebula {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(244, 114, 182, 0.9);
+  text-shadow:
+    0 0 10px rgba(244, 114, 182, 0.25),
+    0 0 26px rgba(225, 29, 72, 0.15);
+}
+
+.text-stroke-soft {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.75);
+  text-shadow:
+    0 0 10px rgba(244, 114, 182, 0.22),
+    0 0 30px rgba(232, 121, 249, 0.12);
+}
+
+@supports not (-webkit-text-stroke: 1px black) {
+  .text-stroke-nebula,
+  .text-stroke-soft {
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Corner brackets used around "CLICK TO OPEN" */
+.hero-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-corners::before,
+.hero-corners::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.hero-corners::before {
+  border-left: 2px solid rgba(244, 114, 182, 0.45);
+  border-top: 2px solid rgba(244, 114, 182, 0.45);
+  width: 18px;
+  height: 18px;
+  left: 10px;
+  top: 10px;
+  box-shadow: 0 0 16px rgba(244, 114, 182, 0.25);
+}
+
+.hero-corners::after {
+  border-right: 2px solid rgba(244, 114, 182, 0.45);
+  border-bottom: 2px solid rgba(244, 114, 182, 0.45);
+  width: 18px;
+  height: 18px;
+  right: 10px;
+  bottom: 10px;
+  box-shadow: 0 0 16px rgba(244, 114, 182, 0.25);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
