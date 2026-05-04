@@ -16,7 +16,7 @@ export const projects = [
       { category: "Database & Backend", items: ["MongoDB Atlas", "REST API"] },
       { category: "IoT & Hardware", items: ["ESP32", "Arduino", "Solar Powered Systems"] }
     ],
-    link: "https://github.com/Fibii44/VertiGrow-Showcase",
+    demoLink: "https://fibii44.github.io/vertigrow-landing/",
     src: "/assets/verti-web/verti-web_01.webp"
   },
   {
@@ -37,8 +37,7 @@ export const projects = [
       { category: "Databases", items: ["Firebase Realtime Database"] },
       { category: "IoT & Hardware", items: ["ESP32", "Solar Powered Systems"] }
     ],
-    link: "https://github.com/Fibii44/VertiGrow-App-Showcase",
-    demoLink: "https://github.com/Fibii44/VertiGrow-App-Showcase",
+    demoLink: "https://fibii44.github.io/vertigrow-landing/",
     src: "/assets/verti-app/verti-app01.webp"
   },
   {

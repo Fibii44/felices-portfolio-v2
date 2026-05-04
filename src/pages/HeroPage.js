@@ -161,7 +161,7 @@ const HeroPage = () => {
                     
                     // Ring 2 - Middle (Radius 160)
                     { speed: 25, radius: 160, size: 44, startAt: 0, images: [{ name: "Firebase", url: "https://cdn.simpleicons.org/firebase" }] },
-                    { speed: 25, radius: 160, size: 44, startAt: 0.25, images: [{ name: "Next.js", url: "https://cdn.simpleicons.org/nextdotjs" }] },
+                    { speed: 25, radius: 160, size: 44, startAt: 0.25, images: [{ name: "Next.js", url: "https://cdn.simpleicons.org/nextdotjs/white" }] },
                     { speed: 25, radius: 160, size: 44, startAt: 0.5, images: [{ name: "MongoDB", url: "https://cdn.simpleicons.org/mongodb" }] },
                     { speed: 25, radius: 160, size: 44, startAt: 0.75, images: [{ name: "MySQL", url: "https://cdn.simpleicons.org/mysql" }] },
                     

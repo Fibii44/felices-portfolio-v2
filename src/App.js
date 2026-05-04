@@ -115,25 +115,8 @@ function App() {
           }`}
         >
           <div className="relative flex flex-col items-center gap-5 px-6 text-center">
-            <div ref={loaderLogoRef} className="origin-center inline-block w-fit">
-              <Shuffle
-                text="FEBY"
-                shuffleDirection="right"
-                duration={0.35}
-                animationMode="evenodd"
-                shuffleTimes={1}
-                ease="power3.out"
-                stagger={0.03}
-                threshold={0.1}
-                triggerOnce
-                triggerOnHover={false}
-                respectReducedMotion
-                loop={false}
-                loopDelay={0}
-                colorFrom="#F472B6"
-                colorTo="#FFFFFF"
-                className="font-pixel text-5xl md:text-7xl tracking-[0.06em]"
-              />
+            <div ref={loaderLogoRef} className="origin-center flex items-center justify-center">
+              <span className="font-pixel text-4xl md:text-5xl text-white">FEBY</span>
             </div>
             <p ref={loaderCaptionRef} className="text-[10px] font-black uppercase tracking-[0.36em] text-nebula-300/80">
               Loading Portfolio
@@ -211,27 +194,27 @@ function App() {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                {showNavLogo ? (
-                  <Shuffle
-                    text="FEBY"
-                    shuffleDirection="right"
-                    duration={0.35}
-                    animationMode="evenodd"
-                    shuffleTimes={1}
-                    ease="power3.out"
-                    stagger={0.03}
-                    threshold={0.1}
-                    triggerOnce={true}
-                    triggerOnHover={true}
-                    respectReducedMotion
-                    loop={false}
-                    loopDelay={0}
-                    colorFrom="#F472B6"
-                    colorTo="#FFFFFF"
-                    className="font-pixel text-xl md:text-2xl tracking-[0.06em] text-white"
-                  />
-                ) : (
-                  "FEBY"
+                {showNavLogo && (
+                  <div className="flex items-center">
+                    <Shuffle
+                      text="FEBY"
+                      shuffleDirection="right"
+                      duration={0.35}
+                      animationMode="evenodd"
+                      shuffleTimes={1}
+                      ease="power3.out"
+                      stagger={0.03}
+                      threshold={0.1}
+                      triggerOnce={true}
+                      triggerOnHover={true}
+                      respectReducedMotion
+                      loop={false}
+                      loopDelay={0}
+                      colorFrom="#F472B6"
+                      colorTo="#FFFFFF"
+                      className="font-pixel text-xl md:text-2xl tracking-[0.06em] text-white"
+                    />
+                  </div>
                 )}
               </div>
 

@@ -4,8 +4,8 @@ export const metadata = {
   title: 'Felices Feby',
   description: 'Web Developer & QA Tester Portfolio',
   icons: {
-    icon: '/logo.svg?v=4',
-    apple: '/logo.svg?v=4',
+    icon: '/assets/logo.svg',
+    apple: '/assets/logo.svg',
   },
 };
 

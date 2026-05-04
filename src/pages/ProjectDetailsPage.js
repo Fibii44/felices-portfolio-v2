@@ -123,6 +123,17 @@ const ProjectDetailsPage = () => {
               </>
             )}
 
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedImg(null)}
+              className="absolute top-4 right-4 md:top-8 md:right-8 z-[120] p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              aria-label="Close lightbox"
+            >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+
             <motion.div
               key={selectedImg}
               initial={{ scale: 0.9, opacity: 0 }}
@@ -155,7 +166,30 @@ const ProjectDetailsPage = () => {
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to Portfolio
           </button>
-          <div className="font-pixel text-lg text-white">Project Details</div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <Shuffle
+                text="FEBY"
+                shuffleDirection="right"
+                duration={0.35}
+                animationMode="evenodd"
+                shuffleTimes={1}
+                ease="power3.out"
+                stagger={0.03}
+                threshold={0.1}
+                triggerOnce={true}
+                triggerOnHover={true}
+                respectReducedMotion
+                loop={false}
+                loopDelay={0}
+                colorFrom="#F472B6"
+                colorTo="#FFFFFF"
+                className="font-pixel text-base text-white"
+              />
+            </div>
+            <div className="w-px h-4 bg-white/20 mx-1" />
+            <div className="font-pixel text-[10px] uppercase tracking-widest text-slate-400">Project Details</div>
+          </div>
         </div>
       </nav>
 
@@ -175,7 +209,11 @@ const ProjectDetailsPage = () => {
               ))}
             </div>
             <h1 className="text-2xl md:text-4xl font-black text-white mb-6 font-pixel uppercase leading-tight">
-              {project.title}
+              <Shuffle 
+                text={project.title} 
+                colorFrom="#F472B6" 
+                colorTo="#FFFFFF" 
+              />
             </h1>
             <p className="text-xl text-slate-400 leading-relaxed max-w-3xl">
               {project.desc}
@@ -203,7 +241,14 @@ const ProjectDetailsPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
             {/* Left: Main Content */}
             <div className="lg:col-span-2">
-                <h2 className="text-2xl font-pixel text-white mb-8 uppercase">Project Overview</h2>
+                <h2 className="text-2xl font-pixel text-white mb-8 uppercase">
+                  <Shuffle 
+                    text="Project Overview" 
+                    tag="span" 
+                    colorFrom="#F472B6" 
+                    colorTo="#FFFFFF" 
+                  />
+                </h2>
               <div className="prose prose-invert max-w-none text-slate-400 leading-relaxed text-base whitespace-pre-line">
                 {project.longDesc?.split('\n').map((line, idx) => {
                   if (line.trim().startsWith('•')) {
@@ -307,7 +352,7 @@ const ProjectDetailsPage = () => {
               <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-8">
                 <div>
                   <h3 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-nebula-400 mb-4">
-                    <Tag size={12} /> Technologies
+                    Technologies
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map(tag => (
@@ -318,10 +363,26 @@ const ProjectDetailsPage = () => {
 
                 <div>
                   <h3 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-stellar-400 mb-4">
-                    <Calendar size={12} /> Project Year
+                    Project Year
                   </h3>
                   <p className="text-sm text-slate-300">2024 - 2025</p>
                 </div>
+
+                {/* Live Project Button */}
+                {project.demoLink && (
+                  <div className="pt-4">
+                    <a 
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn relative flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-stellar-500/10 border border-stellar-500/20 overflow-hidden transition-all duration-300 hover:border-stellar-400/50 hover:bg-stellar-500/20 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)]"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-stellar-500/0 via-stellar-500/5 to-stellar-500/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
+                      <Globe className="w-5 h-5 text-stellar-400 transition-transform duration-300 group-hover/btn:scale-110" />
+                      <span className="font-pixel text-[10px] uppercase tracking-[0.2em] text-white">Live Project</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Conditional Source Code Button */}
                 {project.link && (
