@@ -135,7 +135,21 @@ const SkillsPage = () => {
           <p className="text-slate-500 font-pixel text-[10px] uppercase tracking-widest">Selected Contributions & Deliverables</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.15
+              }
+            }
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
+        >
           {[
             {
               title: "Formatting Module",
@@ -153,7 +167,18 @@ const SkillsPage = () => {
               description: "Conducted extensive quality assurance testing for version 3, identifying critical bugs and ensuring a polished release."
             }
           ].map((work, index) => (
-            <div key={index} className="h-full">
+            <motion.div 
+              key={index} 
+              className="h-full"
+              variants={{
+                hidden: { y: 30, opacity: 0 },
+                visible: {
+                  y: 0,
+                  opacity: 1,
+                  transition: { duration: 0.6, ease: "easeOut" }
+                }
+              }}
+            >
               <ExpandableCard 
                 title={work.title}
                 src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop&${index}`}
@@ -173,9 +198,9 @@ const SkillsPage = () => {
                   </div>
                 </div>
               </ExpandableCard>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
     </section>

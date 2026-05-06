@@ -121,6 +121,9 @@ export function OrbitingImage({
           `rotate(${startAt * 360 + 270}deg) translateY(-${radius}px) rotate(-${startAt * 360 + 270}deg)`,
           `rotate(${startAt * 360 + 360}deg) translateY(-${radius}px) rotate(-${startAt * 360 + 360}deg)`,
         ],
+        scale: [0.8, 1, 1.2, 1, 0.8],
+        opacity: [0.6, 1, 1, 1, 0.6],
+        zIndex: [0, 5, 20, 5, 0],
       }}
       transition={{
         duration: speed,
@@ -128,7 +131,7 @@ export function OrbitingImage({
         ease: "linear",
       }}
       className={cn(
-        "absolute z-[5] flex transform-gpu items-center justify-center rounded-full p-[5%]",
+        "absolute flex transform-gpu items-center justify-center rounded-full p-[5%]",
         className
       )}
       {...props}

@@ -14,8 +14,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 function App() {
   const [isAboutPage, setIsAboutPage] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [sweepPhase, setSweepPhase] = useState('in');
   const [showLoader, setShowLoader] = useState(true);
   const [showNavLogo, setShowNavLogo] = useState(false);
 
@@ -31,74 +29,34 @@ function App() {
   const navLogoRef = useRef(null);
 
   useEffect(() => {
-    const morphTimer = setTimeout(() => {
-      if (!loaderOverlayRef.current || !loaderLogoRef.current || !navLogoRef.current) {
+    const timer = setTimeout(() => {
+      if (loaderOverlayRef.current) {
+        gsap.to(loaderOverlayRef.current, {
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            setShowNavLogo(true);
+            setShowLoader(false);
+            sessionStorage.setItem('loaderShown', 'true');
+          }
+        });
+      } else {
         setShowNavLogo(true);
         setShowLoader(false);
-        return;
       }
+    }, 1200);
 
-      const from = loaderLogoRef.current.getBoundingClientRect();
-      const to = navLogoRef.current.getBoundingClientRect();
-
-      const fromCenterX = from.left + from.width / 2;
-      const fromCenterY = from.top + from.height / 2;
-      const toCenterX = to.left + to.width / 2;
-      const toCenterY = to.top + to.height / 2;
-
-      const dx = toCenterX - fromCenterX;
-      const dy = toCenterY - fromCenterY - 1;
-      const scaleX = to.width / from.width;
-      const scaleY = to.height / from.height;
-
-      const tl = gsap.timeline({
-        defaults: { ease: 'power3.inOut' },
-        onComplete: () => {
-          setShowNavLogo(true);
-          setShowLoader(false);
-          sessionStorage.setItem('loaderShown', 'true');
-        }
-      });
-
-      if (loaderCaptionRef.current) {
-        tl.to(loaderCaptionRef.current, { opacity: 0, y: 10, duration: 0.25 }, 0);
-      }
-
-      tl.to(
-        loaderLogoRef.current,
-        {
-          x: dx,
-          y: dy,
-          scaleX,
-          scaleY,
-          transformOrigin: '50% 50%',
-          duration: 0.95
-        },
-        0.08
-      );
-      tl.to(loaderOverlayRef.current, { opacity: 0, duration: 0.55, ease: 'power2.out' }, 0.58);
-    }, 1000);
-
-    return () => {
-      clearTimeout(morphTimer);
-    };
+    return () => clearTimeout(timer);
   }, []);
   
-  const triggerTransition = (targetState) => {
-    setSweepPhase('in');
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setIsAboutPage(targetState);
-      window.scrollTo(0, 0);
-      setSweepPhase('out');
-    }, 650);
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 1300);
-  };
+   const triggerTransition = (targetState) => {
+     setIsAboutPage(targetState);
+     window.scrollTo(0, 0);
+   };
 
   return (
-    <div className="min-h-screen text-slate-100 font-sans scroll-smooth transition-colors duration-500 overflow-x-hidden relative">
+    <div className="min-h-screen text-slate-100 font-sans overflow-x-hidden relative">
       <TargetCursor
         targetSelector="a, button, .cursor-target"
         spinDuration={2}
@@ -116,66 +74,32 @@ function App() {
         >
           <div className="relative flex flex-col items-center gap-5 px-6 text-center">
             <div ref={loaderLogoRef} className="origin-center flex items-center justify-center">
-              <span className="font-pixel text-4xl md:text-5xl text-white">FEBY</span>
+              <Shuffle
+                text="FEBY"
+                shuffleDirection="right"
+                duration={0.8}
+                animationMode="evenodd"
+                shuffleTimes={3}
+                ease="power3.out"
+                stagger={0.05}
+                threshold={0.1}
+                triggerOnce={true}
+                triggerOnHover={false}
+                respectReducedMotion
+                loop={false}
+                loopDelay={0}
+                colorFrom="#F472B6"
+                colorTo="#FFFFFF"
+                className="font-pixel text-4xl md:text-5xl text-white"
+              />
             </div>
-            <p ref={loaderCaptionRef} className="text-[10px] font-black uppercase tracking-[0.36em] text-nebula-300/80">
-              Loading Portfolio
-            </p>
           </div>
         </div>
       )}
 
       <Starfield />
 
-      {/* Cloud SVG Transition */}
-      {isTransitioning && (
-        <div
-          className={`fixed inset-0 z-[9999] pointer-events-none overflow-hidden ${
-            sweepPhase === 'in' ? 'animate-cloud-sweep-in' : 'animate-cloud-sweep-out'
-          }`}
-        >
-          <svg viewBox="0 0 1440 900" className="w-full h-full" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#A78BFA" stopOpacity="0.98" />
-                <stop offset="30%" stopColor="#C084FC" stopOpacity="0.97" />
-                <stop offset="60%" stopColor="#A855F7" stopOpacity="0.96" />
-                <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.94" />
-              </linearGradient>
-            </defs>
 
-            {/* Fluffy cloud blocks */}
-            <rect x="40" y="320" width="120" height="120" fill="#DDD6FE" opacity="0.95" rx="20" />
-            <rect x="100" y="280" width="140" height="100" fill="#E9D5FF" opacity="0.92" rx="20" />
-            <rect x="160" y="340" width="110" height="130" fill="#D8B4FE" opacity="0.94" rx="20" />
-            <rect x="20" y="380" width="95" height="140" fill="#C084FC" opacity="0.96" rx="20" />
-
-            <rect x="280" y="300" width="130" height="110" fill="#E9D5FF" opacity="0.94" rx="20" />
-            <rect x="330" y="250" width="145" height="95" fill="#DDD6FE" opacity="0.91" rx="20" />
-            <rect x="380" y="330" width="120" height="140" fill="#D8B4FE" opacity="0.94" rx="20" />
-            <rect x="250" y="370" width="115" height="125" fill="#C084FC" opacity="0.93" rx="20" />
-
-            <rect x="520" y="280" width="155" height="105" fill="#DDD6FE" opacity="0.96" rx="20" />
-            <rect x="580" y="230" width="160" height="90" fill="#E9D5FF" opacity="0.93" rx="20" />
-            <rect x="650" y="310" width="135" height="145" fill="#D8B4FE" opacity="0.95" rx="20" />
-            <rect x="490" y="350" width="130" height="140" fill="#C084FC" opacity="0.94" rx="20" />
-            <rect x="580" y="370" width="120" height="135" fill="#B78EFF" opacity="0.92" rx="20" />
-
-            <rect x="820" y="290" width="140" height="115" fill="#E9D5FF" opacity="0.94" rx="20" />
-            <rect x="880" y="240" width="150" height="100" fill="#DDD6FE" opacity="0.91" rx="20" />
-            <rect x="950" y="320" width="125" height="150" fill="#D8B4FE" opacity="0.94" rx="20" />
-            <rect x="790" y="360" width="120" height="135" fill="#C084FC" opacity="0.92" rx="20" />
-
-            <rect x="1100" y="310" width="130" height="120" fill="#E9D5FF" opacity="0.93" rx="20" />
-            <rect x="1160" y="260" width="145" height="105" fill="#DDD6FE" opacity="0.90" rx="20" />
-            <rect x="1220" y="340" width="115" height="140" fill="#D8B4FE" opacity="0.94" rx="20" />
-            <rect x="1080" y="370" width="110" height="135" fill="#C084FC" opacity="0.92" rx="20" />
-
-            <rect x="1280" y="330" width="100" height="130" fill="#D8B4FE" opacity="0.91" rx="20" />
-            <rect x="1330" y="280" width="120" height="115" fill="#E9D5FF" opacity="0.93" rx="20" />
-          </svg>
-        </div>
-      )}
 
       {isAboutPage ? (
         <AboutMe onBack={() => triggerTransition(false)} />

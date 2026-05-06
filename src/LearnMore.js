@@ -6,14 +6,14 @@ const AboutMe = ({ onBack }) => {
   const totalSteps = 4;
 
   return (
-    <div className="min-h-screen bg-space-950 flex flex-col animate-in fade-in duration-500 text-left relative overflow-hidden font-sans transition-colors duration-500 text-slate-100">
+    <div className="min-h-screen bg-space-950 flex flex-col text-left relative overflow-hidden font-sans text-slate-100">
       
       {/* Starfield removed here as it is global in App.js */}
       
       {/* Progress Bar */}
       <div className="w-full h-1.5 bg-white/5 fixed top-0 z-[200]">
         <div 
-          className="h-full bg-gradient-to-r from-nebula-500 to-cosmic-500 shadow-[0_0_15px_rgba(236,72,153,0.5)] transition-all duration-700 ease-out" 
+          className="h-full bg-gradient-to-r from-nebula-500 to-cosmic-500 shadow-[0_0_15px_rgba(236,72,153,0.5)]" 
           style={{ width: `${(step / totalSteps) * 100}%` }}
         />
       </div>
@@ -31,7 +31,7 @@ const AboutMe = ({ onBack }) => {
           
           {/* Step 1: Philosophy */}
           {step === 1 && (
-            <div className="space-y-6 animate-in slide-in-from-right duration-500">
+            <div className="space-y-6">
               <div className="p-5 glass w-fit rounded-3xl text-nebula-400 shadow-2xl border-nebula-500/20">
                 <Orbit size={48} className="animate-pulse" />
               </div>
@@ -52,7 +52,7 @@ const AboutMe = ({ onBack }) => {
 
           {/* Step 2: QA Experience */}
           {step === 2 && (
-            <div className="space-y-8 animate-in slide-in-from-right duration-500">
+            <div className="space-y-8">
               <div className="p-5 glass w-fit rounded-3xl text-cosmic-400 shadow-2xl border-cosmic-500/20">
                 <ShieldCheck size={48} />
               </div>
@@ -90,7 +90,7 @@ const AboutMe = ({ onBack }) => {
 
           {/* Step 3: Project Management */}
           {step === 3 && (
-            <div className="space-y-8 animate-in slide-in-from-right duration-500 relative">
+            <div className="space-y-8 relative">
               <div className="space-y-4">
                 <div className="p-5 glass w-fit rounded-3xl text-stellar-400 shadow-2xl border-stellar-500/20">
                   <Briefcase size={40} />
@@ -125,8 +125,8 @@ const AboutMe = ({ onBack }) => {
 
           {/* Step 4: Goals */}
           {step === 4 && (
-            <div className="space-y-6 animate-in slide-in-from-right duration-500">
-              <div className="p-5 glass w-fit rounded-3xl text-nebula-400 shadow-2xl border-nebula-500/20 animate-bounce">
+            <div className="space-y-6">
+              <div className="p-5 glass w-fit rounded-3xl text-nebula-400 shadow-2xl border-nebula-500/20">
                 <Sparkles size={48} />
               </div>
               <h2 className="text-5xl md:text-6xl font-black text-white leading-tight tracking-tight">
@@ -139,12 +139,12 @@ const AboutMe = ({ onBack }) => {
           )}
 
           {/* Navigation */}
-          <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-10 transition-colors">
+          <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-10">
             <button 
               onClick={() => step > 1 ? setStep(step - 1) : onBack()}
               className="text-slate-500 font-bold hover:text-white transition-colors uppercase tracking-widest text-sm flex items-center gap-2 group"
             >
-              <ChevronRight size={18} className="rotate-180 group-hover:-translate-x-1 transition-transform" />
+              <ChevronRight size={18} className="rotate-180 transition-transform" />
               <span>{step === 1 ? 'Exit Orbit' : 'Previous Orbit'}</span>
             </button>
             <button 

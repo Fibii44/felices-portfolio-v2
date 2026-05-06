@@ -85,33 +85,59 @@ const HeroPage = () => {
               
               {/* Stellar Portal Backdrop */}
               <div className="absolute w-[450px] h-[450px] md:w-[550px] md:h-[550px] bg-nebula-500/20 rounded-full blur-[100px] animate-pulse-slow" />
-              <div className="absolute w-[300px] h-[300px] md:w-[400px] md:h-[400px] border border-white/10 rounded-full animate-spin-slow opacity-20" />
-              <div className="absolute w-[350px] h-[350px] md:w-[450px] md:h-[450px] border border-nebula-400/10 rounded-full animate-spin-slow-reverse opacity-20" />
               
-              {/* Floating User Image */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="relative z-10 w-[300px] md:w-[450px] flex justify-center items-center group"
-              >
-                <img 
-                  src={userImage.src || userImage} 
-                  alt="Feby Angela"
-                  className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(219,39,119,0.3)] group-hover:scale-105 transition-transform duration-700 pointer-events-none select-none"
-                />
-                
-                {/* Subtle Image Fades */}
-                <div className="absolute inset-0 bg-gradient-to-t from-space-950/20 via-transparent to-transparent pointer-events-none" />
-              </motion.div>
+              {/* Cloud Orbiting Icons for Hero */}
+              <Suspense fallback={null}>
+                <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+                  <CloudOrbit
+                    duration={3}
+                    size={0}
+                    className="scale-75 md:scale-100"
+                  >
+                    {/* Floating User Image */}
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="relative z-10 w-[300px] md:w-[450px] flex justify-center items-center group pointer-events-auto"
+                    >
+                      <img 
+                        src={userImage.src || userImage} 
+                        alt="Feby Angela"
+                        className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(219,39,119,0.3)] group-hover:scale-105 transition-transform duration-700 pointer-events-none select-none"
+                      />
+                      
+                      {/* Subtle Image Fades */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-space-950/20 via-transparent to-transparent pointer-events-none" />
+                    </motion.div>
 
-              {/* Decorative Floating Elements */}
-              <div className="absolute top-1/4 -right-4 w-12 h-12 glass rounded-2xl rotate-12 animate-bounce-subtle flex items-center justify-center border-white/20 z-20">
-                <div className="w-2 h-2 bg-nebula-400 rounded-full animate-ping" />
-              </div>
-              <div className="absolute bottom-1/4 -left-4 w-10 h-10 glass rounded-xl -rotate-12 animate-bounce-subtle flex items-center justify-center border-white/20 z-20" style={{ animationDelay: '1s' }}>
-                <div className="w-1.5 h-1.5 bg-cosmic-400 rounded-full" />
-              </div>
+                    {/* Orbiting Icons - Hero Set */}
+                    {[
+                      // Inner Ring (Radius 240-260)
+                      { speed: 20, radius: 240, size: 52, startAt: 0, images: [{ name: "React", url: "https://cdn.simpleicons.org/react" }] },
+                      { speed: 20, radius: 240, size: 52, startAt: 0.33, images: [{ name: "JavaScript", url: "https://cdn.simpleicons.org/javascript" }] },
+                      { speed: 20, radius: 240, size: 52, startAt: 0.66, images: [{ name: "Laravel", url: "https://cdn.simpleicons.org/laravel" }] },
+                      
+                      // Outer Ring (Radius 320-350)
+                      { speed: 28, radius: 340, size: 44, startAt: 0.15, images: [{ name: "PHP", url: "https://cdn.simpleicons.org/php" }] },
+                      { speed: 28, radius: 340, size: 44, startAt: 0.4, images: [{ name: "Tailwind CSS", url: "https://cdn.simpleicons.org/tailwindcss" }] },
+                      { speed: 28, radius: 340, size: 44, startAt: 0.65, images: [{ name: "Next.js", url: "https://cdn.simpleicons.org/nextdotjs/white" }] },
+                      { speed: 28, radius: 340, size: 44, startAt: 0.9, images: [{ name: "GitHub", url: "https://cdn.simpleicons.org/github/white" }] },
+                    ].map((orbit, index) => (
+                      <OrbitingImage
+                        key={index}
+                        speed={orbit.speed}
+                        radius={orbit.radius}
+                        size={orbit.size}
+                        startAt={orbit.startAt}
+                        images={orbit.images}
+                        className="pointer-events-auto"
+                      />
+                    ))}
+                  </CloudOrbit>
+                </div>
+              </Suspense>
+
             </div>
           </div>
         </div>

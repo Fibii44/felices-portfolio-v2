@@ -67,7 +67,6 @@ export const projects = [
       { category: "Architecture", items: ["Multi-tenancy", "Subdomain Routing"] },
       { category: "Database", items: ["MySQL", "Tenant Isolation"] }
     ],
-    link: "https://github.com/Fibii44/AACCUP-showcase",
     src: "/assets/aaccup/aaccup-01.webp",
     extraImages: ["/assets/aaccup/aaccup-02.webp"]
   },

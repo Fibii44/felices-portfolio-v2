@@ -38,7 +38,7 @@ export function Marquee({
       {...props}
       ref={containerRef}
       className={cn(
-        "marquee-container flex [gap:var(--gap)] overflow-x-auto scrollbar-none select-none [--gap:1rem]",
+        "marquee-container group flex [gap:var(--gap)] overflow-x-auto scrollbar-none select-none [--gap:1rem]",
         isDragging ? "cursor-grabbing" : "cursor-grab",
         className
       )}
@@ -56,7 +56,7 @@ export function Marquee({
             className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
               "animate-marquee-left": direction === "left",
               "animate-marquee-right": direction === "right",
-              "marquee-container:hover:[animation-play-state:paused]": true,
+              "group-hover:[animation-play-state:paused]": true,
             })}
           >
             {children}
