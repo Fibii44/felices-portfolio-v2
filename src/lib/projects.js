@@ -1,5 +1,20 @@
 export const projects = [
   {
+    id: "rj-studio-design",
+    title: "RJ-Studio Design",
+    desc: "An Architectural CRM & Construction ERP System designed to bridge the gap between design and physical building.",
+    longDesc: "RJ-Studio Design is an integrated CRM & ERP portal developed specifically for architectural and construction workflows. It addresses the disconnect between creative design visualization (blueprints, 3D renderings) and physical project execution (material logs, budget oversight, labor tracking, and scheduling).\n\nKey Features:\n• Client CRM & Scheduling: Dedicated portal enabling clients to request architectural appointments, track schedules via an interactive calendar, and browse design portfolios.\n• Construction ERP & Budgets: Full material inventory management, expense auditing, and labor cost tracking with real-time financial tracking against overall project budget limits.\n• Admin Schedule Dashboard: Comprehensive management interface for architects to view pending requests, confirm bookings, and configure studio availability.\n• Custom Portfolio Showcase: Dynamic administrative tools to upload, group, and manage blueprint showcases, architectural blueprints, and high-fidelity 3D renders.",
+    tags: ['Laravel', 'CRM', 'ERP', 'MySQL', 'Alpine.js'],
+    stack: [
+      { category: "Web Frameworks", items: ["Laravel 11", "PHP", "Blade"] },
+      { category: "Frontend", items: ["TailwindCSS", "Alpine.js", "JavaScript"] },
+      { category: "Database & Cloud", items: ["MySQL", "Aiven Cloud DB", "Eloquent ORM"] },
+      { category: "Architecture & Security", items: ["Role-Based Access Control", "CRM & ERP Integration"] }
+    ],
+    demoLink: "https://rjstudiodesign.me/",
+    src: "/assets/rj-studio/rj-studio01.webp"
+  },
+  {
     id: "vertigrow-web",
     title: "VertiGrow Web - Capstone",
     desc: "Vertical Farming web system that integrates IoT sensors to track environment in real time.",
@@ -87,14 +102,5 @@ export const projects = [
     ],
     link: "https://github.com/nloukei/KittyCrossRoad",
     src: "/assets/kitty-crossroad/kitty_01.webp"
-  },
-  {
-    id: "project-placeholder",
-    title: "Project Placeholder",
-    desc: "Upcoming implementation mapping innovative solutions and workflow optimizations.",
-    longDesc: "This is a placeholder for an upcoming project. Stay tuned for more details on innovative solutions and workflow optimizations that will be showcased here.",
-    tags: ['TBA', 'Design', 'Upcoming'],
-    link: "https://github.com/Fibii44",
-    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
   }
 ];

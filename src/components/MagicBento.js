@@ -36,10 +36,7 @@ const cardData = [
     title: 'INTERNSHIP',
     description: 'Certificate of completion for industry experience.',
     label: 'Internship 2024',
-    images: [
-      'https://via.placeholder.com/400x300/120F17/F472B6?text=INTERNSHIP+CERT+1',
-      'https://via.placeholder.com/400x300/120F17/F472B6?text=INTERNSHIP+CERT+2'
-    ]
+    image: '/assets/intern-certi.webp'
   },
   {
     color: '#120F17',
@@ -614,6 +611,10 @@ const MagicBento = ({
             text-overflow: ellipsis;
           }
           
+          .shadow-text {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.95);
+          }
+          
           @media (max-width: 599px) {
             .card-responsive {
               grid-template-columns: 1fr;
@@ -684,48 +685,51 @@ const MagicBento = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
-                  <div className="card__header flex justify-between gap-3 relative text-white">
-                    <span className="card__label text-lg font-medium opacity-80">{card.label}</span>
+                  <div className={`card__header flex justify-between gap-3 relative text-white z-10 ${card.image ? 'transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-[-5px]' : ''}`}>
+                    <span className={`card__label text-lg font-medium opacity-80 ${card.image ? 'shadow-text' : ''}`}>{card.label}</span>
                   </div>
-                  <div className="card__content flex flex-col relative text-white">
-                    <h3 className={`card__title font-pixel text-lg m-0 mb-2`}>
+                  <div className={`card__content flex flex-col relative text-white z-10 ${card.image ? 'max-w-[55%] transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-[5px]' : ''}`}>
+                    <h3 className={`card__title font-pixel text-lg m-0 mb-2 ${card.image ? 'shadow-text' : ''}`}>
                       {card.title}
                     </h3>
                     <p
-                      className={`card__description text-sm leading-relaxed opacity-70 ${textAutoHide ? 'text-clamp-2' : ''}`}
+                      className={`card__description text-sm leading-relaxed opacity-70 ${textAutoHide ? 'text-clamp-2' : ''} ${card.image ? 'shadow-text' : ''}`}
                     >
                       {card.description}
                     </p>
                   </div>
-                  {(card.image || card.images) && (
+                  {card.image && (
+                    <div className="absolute inset-0 w-full h-full p-6 flex items-center justify-center pointer-events-none z-0 group-hover:z-20 transition-all duration-700 ease-out">
+                      <img 
+                        src={card.image} 
+                        alt="" 
+                        className="w-full h-full object-contain transition-all duration-700 ease-out group-hover:scale-105 opacity-30 group-hover:opacity-100 rounded-2xl" 
+                      />
+                    </div>
+                  )}
+                  {card.images && (
                     <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                      {card.images ? (
-                        card.images.map((img, i) => {
-                          const positions = [
-                            { top: '20%', right: '15%', width: '180px' },
-                            { top: '40%', left: '15%', width: '200px' },
-                            { bottom: '20%', right: '25%', width: '190px' },
-                            { top: '30%', left: '35%', width: '210px' }
-                          ];
-                          const pos = positions[i] || {};
-                          return (
-                            <div 
-                              key={i}
-                              className={`absolute scatter-image scatter-image-${i}`}
-                              style={{
-                                ...pos,
-                                zIndex: 0
-                              }}
-                            >
-                              <img src={img} alt="" className="w-full h-auto object-contain rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10" />
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="absolute bottom-4 right-4 w-32 h-32 md:w-56 md:h-56 transition-all duration-700 rotate-6 group-hover:rotate-0 group-hover:scale-105 opacity-30 group-hover:opacity-90">
-                          <img src={card.image} alt="" className="w-full h-full object-contain rounded-xl shadow-2xl" />
-                        </div>
-                      )}
+                      {card.images.map((img, i) => {
+                        const positions = [
+                          { top: '20%', right: '15%', width: '180px' },
+                          { top: '40%', left: '15%', width: '200px' },
+                          { bottom: '20%', right: '25%', width: '190px' },
+                          { top: '30%', left: '35%', width: '210px' }
+                        ];
+                        const pos = positions[i] || {};
+                        return (
+                          <div 
+                            key={i}
+                            className={`absolute scatter-image scatter-image-${i}`}
+                            style={{
+                              ...pos,
+                              zIndex: 0
+                            }}
+                          >
+                            <img src={img} alt="" className="w-full h-auto object-contain rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10" />
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </ParticleCard>
@@ -847,46 +851,49 @@ const MagicBento = ({
                   el.addEventListener('click', handleClick);
                 }}
               >
-                <div className="card__header flex justify-between gap-3 relative text-white">
-                  <span className="card__label text-lg font-medium opacity-80">{card.label}</span>
+                <div className={`card__header flex justify-between gap-3 relative text-white z-10 ${card.image ? 'transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-[-5px]' : ''}`}>
+                  <span className={`card__label text-lg font-medium opacity-80 ${card.image ? 'shadow-text' : ''}`}>{card.label}</span>
                 </div>
-                <div className="card__content flex flex-col relative text-white">
-                  <h3 className={`card__title font-pixel text-lg m-0 mb-2`}>
+                <div className={`card__content flex flex-col relative text-white z-10 ${card.image ? 'max-w-[55%] transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-[5px]' : ''}`}>
+                  <h3 className={`card__title font-pixel text-lg m-0 mb-2 ${card.image ? 'shadow-text' : ''}`}>
                     {card.title}
                   </h3>
-                  <p className={`card__description text-sm leading-relaxed opacity-70 ${textAutoHide ? 'text-clamp-2' : ''}`}>
+                  <p className={`card__description text-sm leading-relaxed opacity-70 ${textAutoHide ? 'text-clamp-2' : ''} ${card.image ? 'shadow-text' : ''}`}>
                     {card.description}
                   </p>
                 </div>
-                {(card.image || card.images) && (
+                {card.image && (
+                  <div className="absolute inset-0 w-full h-full p-6 flex items-center justify-center pointer-events-none z-0 group-hover:z-20 transition-all duration-700 ease-out">
+                    <img 
+                      src={card.image} 
+                      alt="" 
+                      className="w-full h-full object-contain transition-all duration-700 ease-out group-hover:scale-105 opacity-30 group-hover:opacity-100 rounded-2xl" 
+                    />
+                  </div>
+                )}
+                {card.images && (
                   <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                    {card.images ? (
-                      card.images.map((img, i) => {
-                        const positions = [
-                          { top: '20%', right: '15%', width: '180px' },
-                          { top: '40%', left: '15%', width: '200px' },
-                          { bottom: '20%', right: '25%', width: '190px' },
-                          { top: '30%', left: '35%', width: '210px' }
-                        ];
-                        const pos = positions[i] || {};
-                        return (
-                          <div 
-                            key={i}
-                            className={`absolute scatter-image scatter-image-${i}`}
-                            style={{
-                              ...pos,
-                              zIndex: 0
-                            }}
-                          >
-                            <img src={img} alt="" className="w-full h-auto object-contain rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10" />
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div className="absolute bottom-4 right-4 w-32 h-32 md:w-56 md:h-56 transition-all duration-700 rotate-6 group-hover:rotate-0 group-hover:scale-105 opacity-30 group-hover:opacity-90">
-                        <img src={card.image} alt="" className="w-full h-full object-contain rounded-xl shadow-2xl" />
-                      </div>
-                    )}
+                    {card.images.map((img, i) => {
+                      const positions = [
+                        { top: '20%', right: '15%', width: '180px' },
+                        { top: '40%', left: '15%', width: '200px' },
+                        { bottom: '20%', right: '25%', width: '190px' },
+                        { top: '30%', left: '35%', width: '210px' }
+                      ];
+                      const pos = positions[i] || {};
+                      return (
+                        <div 
+                          key={i}
+                          className={`absolute scatter-image scatter-image-${i}`}
+                          style={{
+                            ...pos,
+                            zIndex: 0
+                          }}
+                        >
+                          <img src={img} alt="" className="w-full h-auto object-contain rounded-xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10" />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
