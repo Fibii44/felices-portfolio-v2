@@ -11,6 +11,31 @@ import Particles from '../components/Particles';
 import TargetCursor from '../TargetCursor';
 import Shuffle from '../components/Shuffle';
 
+const getIconUrl = (item) => {
+  const tech = item.toLowerCase().replace(/ /g, '');
+  if (tech.includes('firebase')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg';
+  if (tech.includes('android')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg';
+  if (tech.includes('kotlin')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg';
+  if (tech.includes('java')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg';
+  if (tech.includes('mongodb')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg';
+  if (tech.includes('node')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg';
+  if (tech.includes('react')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg';
+  if (tech.includes('laravel')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg';
+  if (tech.includes('php')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg';
+  if (tech.includes('tailwind')) return 'https://cdn.simpleicons.org/tailwindcss/38B2AC';
+  if (tech.includes('javascript')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg';
+  if (tech.includes('html5')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg';
+  if (tech.includes('css3')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg';
+  if (tech.includes('arduino')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg';
+  if (tech.includes('esp32')) return 'https://cdn.simpleicons.org/espressif/E7352C';
+  if (tech.includes('mysql')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg';
+  if (tech.includes('git')) return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg';
+  
+  const genericIcon = tech.includes('api') || tech.includes('database') || tech.includes('atlas') ? 'mongodb' : 'javascript';
+  return tech.includes('blade') ? 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg' : 
+         `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${genericIcon}/${genericIcon}-original.svg`;
+};
+
 const ProjectDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
@@ -420,49 +445,34 @@ const ProjectDetailsPage = () => {
                         </div>
                       </div>
 
-                      {project.stack.flatMap((group, groupIdx) =>
-                        group.items.map((item, itemIdx, arr) => {
-                          const tech = item.toLowerCase().replace(/ /g, '');
-                          
-                          // Enhanced Icon Mapping logic
-                          let iconUrl = "";
-                          if (tech.includes('firebase')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg';
-                          else if (tech.includes('android')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg';
-                          else if (tech.includes('kotlin')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg';
-                          else if (tech.includes('java')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg';
-                          else if (tech.includes('mongodb')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg';
-                          else if (tech.includes('node')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg';
-                          else if (tech.includes('react')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg';
-                          else if (tech.includes('laravel')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg';
-                          else if (tech.includes('php')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg';
-                          else if (tech.includes('tailwind')) iconUrl = 'https://cdn.simpleicons.org/tailwindcss/38B2AC';
-                          else if (tech.includes('javascript')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg';
-                          else if (tech.includes('html5')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg';
-                          else if (tech.includes('css3')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg';
-                          else if (tech.includes('arduino')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg';
-                          else if (tech.includes('esp32')) iconUrl = 'https://cdn.simpleicons.org/espressif/E7352C';
-                          else if (tech.includes('mysql')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg';
-                          else if (tech.includes('git')) iconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg';
-                          else {
-                            // Generic fallback for things like "Blade", "REST API", etc.
-                            const genericIcon = tech.includes('api') || tech.includes('database') || tech.includes('atlas') ? 'mongodb' : 'javascript';
-                            iconUrl = tech.includes('blade') ? 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg' : 
-                                      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${genericIcon}/${genericIcon}-original.svg`;
-                          }
+                      {(() => {
+                        const seenUrls = new Set();
+                        return project.stack.flatMap((group, groupIdx) => {
+                          const uniqueItems = group.items.filter(item => {
+                            const url = getIconUrl(item);
+                            if (seenUrls.has(url)) {
+                              return false;
+                            }
+                            seenUrls.add(url);
+                            return true;
+                          });
 
-                          return (
-                            <OrbitingImage
-                              key={`${groupIdx}-${itemIdx}`}
-                              radius={70 + (groupIdx * 50)}
-                              speed={45 + (groupIdx * 20)}
-                              size={40}
-                              startAt={(itemIdx / arr.length) + (groupIdx * 0.3)}
-                              images={[{ url: iconUrl, name: item }]}
-                              className="border-white/10 bg-white/[0.05] backdrop-blur-md"
-                            />
-                          );
-                        })
-                      )}
+                          return uniqueItems.map((item, itemIdx) => {
+                            const iconUrl = getIconUrl(item);
+                            return (
+                              <OrbitingImage
+                                key={`${groupIdx}-${itemIdx}`}
+                                radius={70 + (groupIdx * 50)}
+                                speed={45 + (groupIdx * 20)}
+                                size={40}
+                                startAt={(itemIdx / uniqueItems.length) + (groupIdx * 0.3)}
+                                images={[{ url: iconUrl, name: item }]}
+                                className="border-white/10 bg-white/[0.05] backdrop-blur-md"
+                              />
+                            );
+                          });
+                        });
+                      })()}
                     </CloudOrbit>
                   </div>
                 )}

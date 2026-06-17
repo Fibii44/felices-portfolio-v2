@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Shuffle from '../components/Shuffle';
 import { motion } from 'framer-motion';
 import Marquee from '../components/Marquee';
-import { ExpandableCard } from '../components/ExpandableCard';
 import PixelCard from '../components/PixelCard';
 
 const experiences = [
@@ -35,11 +34,44 @@ const experiences = [
   }
 ];
 
+const internshipWorks = [
+  {
+    title: "Formatting Module",
+    tags: ["Dev", "PHP", "Laravel"],
+    description: "Developed and implemented a robust formatting module for HRMS data processing, ensuring consistency across various system outputs.",
+    glow: "bg-nebula-500/20",
+    border: "group-hover:border-nebula-400/40"
+  },
+  {
+    title: "UI/UX design of manpro version 3",
+    tags: ["Design", "Figma", "UI/UX"],
+    description: "Conceptualized and designed the complete interface overhaul for version 3, focusing on user efficiency and modern aesthetics.",
+    glow: "bg-cosmic-500/20",
+    border: "group-hover:border-cosmic-400/40"
+  },
+  {
+    title: "QA the manpro version 3",
+    tags: ["QA", "Testing", "Bug Fix"],
+    description: "Conducted extensive quality assurance testing for version 3, identifying critical bugs and ensuring a polished release.",
+    glow: "bg-stellar-500/20",
+    border: "group-hover:border-stellar-400/40"
+  }
+];
+
 const SkillsPage = () => {
   const [shuffleKeys, setShuffleKeys] = useState(experiences.map(() => 0));
+  const [internshipShuffleKeys, setInternshipShuffleKeys] = useState(internshipWorks.map(() => 0));
 
   const handleMouseEnter = (index) => {
     setShuffleKeys(prev => {
+      const newKeys = [...prev];
+      newKeys[index] += 1;
+      return newKeys;
+    });
+  };
+
+  const handleInternshipMouseEnter = (index) => {
+    setInternshipShuffleKeys(prev => {
       const newKeys = [...prev];
       newKeys[index] += 1;
       return newKeys;
@@ -150,23 +182,7 @@ const SkillsPage = () => {
           }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
         >
-          {[
-            {
-              title: "Formatting Module",
-              tags: ["Dev", "PHP", "Laravel"],
-              description: "Developed and implemented a robust formatting module for HRMS data processing, ensuring consistency across various system outputs."
-            },
-            {
-              title: "UI/UX design of manpro version 3",
-              tags: ["Design", "Figma", "UI/UX"],
-              description: "Conceptualized and designed the complete interface overhaul for version 3, focusing on user efficiency and modern aesthetics."
-            },
-            {
-              title: "QA the manpro version 3",
-              tags: ["QA", "Testing", "Bug Fix"],
-              description: "Conducted extensive quality assurance testing for version 3, identifying critical bugs and ensuring a polished release."
-            }
-          ].map((work, index) => (
+          {internshipWorks.map((work, index) => (
             <motion.div 
               key={index} 
               className="h-full"
@@ -179,25 +195,49 @@ const SkillsPage = () => {
                 }
               }}
             >
-              <ExpandableCard 
-                title={work.title}
-                src={`https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop&${index}`}
-                description={work.tags[0]}
-                className="cursor-target bg-white/[0.03] border border-white/20 hover:border-white/30 hover:bg-white/[0.08] transition-all duration-300"
+              <div 
+                onMouseEnter={() => handleInternshipMouseEnter(index)}
+                className={`bg-white/[0.03] p-8 rounded-[2.5rem] border border-white/20 relative overflow-hidden group ${work.border} transition-all duration-300 shadow-2xl hover:bg-white/[0.08] hover:border-white/30 h-full flex flex-col justify-between`}
               >
-                <div className="flex flex-col gap-4 font-sans text-left mt-2">
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                {/* Glow effect */}
+                <div className={`absolute -top-24 -left-24 w-48 h-48 ${work.glow} opacity-0 group-hover:opacity-100 transition-opacity rounded-full blur-3xl pointer-events-none`} />
+                
+                <div>
+                  <div className="flex flex-col mb-4">
+                    <Shuffle
+                      key={internshipShuffleKeys[index]}
+                      text={work.title}
+                      shuffleDirection="right"
+                      duration={0.35}
+                      animationMode="evenodd"
+                      shuffleTimes={1}
+                      ease="power3.out"
+                      stagger={0.03}
+                      threshold={0.1}
+                      triggerOnce={true}
+                      triggerOnHover={true}
+                      respectReducedMotion
+                      loop={false}
+                      loopDelay={0}
+                      colorFrom="#F472B6"
+                      colorTo="#FFFFFF"
+                      className="font-pixel text-sm md:text-base font-bold text-white inline-block uppercase"
+                    />
+                  </div>
+
+                  <p className="text-sm text-slate-400 leading-relaxed mb-6 font-sans">
                     {work.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {work.tags.map(tag => (
-                      <span key={tag} className="text-[10px] uppercase tracking-widest font-black px-4 py-1.5 rounded-full bg-nebula-500/10 text-nebula-400 border border-nebula-500/20">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              </ExpandableCard>
+
+                <div className="flex flex-wrap gap-2">
+                  {work.tags.map(tag => (
+                    <span key={tag} className="text-[10px] font-bold tracking-wider text-slate-300 px-3 py-1.5 rounded-xl bg-white/5 border border-white/5 group-hover:border-white/10 transition-colors">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>

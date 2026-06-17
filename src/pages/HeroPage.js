@@ -144,7 +144,7 @@ const HeroPage = () => {
       </header>
 
       {/* Floating Scroll Divider */}
-      <div className="relative -mt-48 md:-mt-64 z-30 pointer-events-none overflow-hidden">
+      <div className="relative -mt-56 md:-mt-80 z-30 pointer-events-none overflow-hidden">
         <div className="py-8 bg-transparent">
           <ScrollVelocity
             texts={['Experience', 'Full Stack Development']} 

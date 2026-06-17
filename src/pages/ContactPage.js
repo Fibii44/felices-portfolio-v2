@@ -43,19 +43,6 @@ const ContactPage = () => {
               <p className="text-xl font-bold text-white">09944450774</p>
             </div>
           </a>
-
-          <a href="tel:09551593904" className="flex items-center gap-4 hover:text-cosmic-400 transition-all group scale-100 hover:scale-105">
-            <div className="relative">
-              <div className="p-4 glass rounded-2xl group-hover:bg-cosmic-500 group-hover:text-white transition-all duration-300">
-                <Phone size={24} className="text-cosmic-400 group-hover:text-white" />
-              </div>
-              <span className="absolute -top-2 -right-2 bg-white text-space-950 text-[10px] px-2 py-0.5 rounded-full font-black tracking-widest uppercase">TM</span>
-            </div>
-            <div className="text-left">
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Call me on TM</p>
-              <p className="text-xl font-bold text-white">09551593904</p>
-            </div>
-          </a>
         </div>
 
         <div className="hidden lg:block w-px h-12 bg-white/10" />
