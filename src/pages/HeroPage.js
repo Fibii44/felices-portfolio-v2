@@ -58,10 +58,11 @@ const HeroPage = () => {
             <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <a
                 href={resumePDF}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-nebula-400/40 bg-nebula-500/15 px-6 py-3 text-[10px] font-black uppercase tracking-[0.28em] text-white transition-all duration-300 hover:border-nebula-300 hover:bg-nebula-500/25 hover:shadow-[0_0_30px_rgba(244,114,182,0.22)]"
               >
-                Download Resume
+                View Resume
               </a>
 
               <a
