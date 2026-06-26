@@ -26,7 +26,7 @@ const HeroPage = () => {
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="inline-flex items-center text-[9px] md:text-[10px] font-black uppercase tracking-[0.45em] text-nebula-300/90">
-              Web Developer • QA Tester
+              Full Stack Web Developer • QA • Project Manager
             </div>
 
             <div className="mt-6 md:mt-8 relative">
@@ -74,11 +74,6 @@ const HeroPage = () => {
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2">Full Stack</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2">UI Systems</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2">QA Testing</span>
-            </div>
           </div>
 
           <div className="w-full lg:w-1/2 relative flex justify-center lg:justify-end">
@@ -217,11 +212,15 @@ const HeroPage = () => {
               </div>
 
               <p className="text-xl md:text-2xl text-slate-100 font-medium leading-relaxed mb-6 max-w-xl">
-                I am a Web Developer and QA Tester specializing in <span className="text-nebula-400">React, Laravel, and PHP</span>.
+                I am a Full Stack Web Developer, QA, and Project Manager specializing in <span className="text-nebula-400">React, Laravel, and PHP</span>.
+              </p>
+              
+              <p className="text-lg text-slate-400 leading-relaxed max-w-xl mb-6">
+                I hold a Bachelor of Science in Information Technology. By combining logical rigor with creative design, I deliver polished, functional products across <span className="text-white font-semibold">various modern tech stacks</span>.
               </p>
               
               <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
-                I deliver polished, functional products by combining logical rigor with creative design across <span className="text-white font-semibold">various modern tech stacks</span>.
+                Driven by a strong eagerness to learn and improve myself, I am constantly motivated to translate new knowledge into valuable, hands-on experience.
               </p>
 
 

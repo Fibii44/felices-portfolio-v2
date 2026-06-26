@@ -37,7 +37,7 @@ const CertificationsPage = () => {
         {/* New Bento Section */}
         <div className="relative z-10 flex justify-center">
           <MagicBento 
-            textAutoHide={true}
+            textAutoHide={false}
             enableStars
             enableSpotlight
             enableBorderGlow={true}

@@ -2,7 +2,7 @@ import '../index.css';
 
 export const metadata = {
   title: 'Felices Feby',
-  description: 'Web Developer & QA Tester Portfolio',
+  description: 'Full Stack Web Developer, QA & Project Manager Portfolio',
   icons: {
     icon: '/assets/logo.svg',
     apple: '/assets/logo.svg',

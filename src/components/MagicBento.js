@@ -16,7 +16,7 @@ const cardData = [
   {
     color: '#120F17',
     title: 'ACADEMIC',
-    description: 'High performance and technical leadership in BSIT.',
+    description: 'Graduated Cum Laude with a Bachelor of Science in Information Technology, showcasing high academic performance and technical leadership.',
     label: 'Consistent Recipient'
   },
   {
